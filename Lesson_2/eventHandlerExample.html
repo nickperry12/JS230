@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>title</title>
+    <meta charset="UTF-8">
+    <script>
+      document.addEventListener('DOMContentLoaded', event => {
+        let addButton = document.getElementById('add');
+        let output = document.getElementById('output');
+        let count = 0;
+
+        addButton.addEventListener('click', event => {
+          count += 1;
+          output.textContent = String(count);
+        });
+
+        let addNameButton = document.getElementById('add_exclamation');
+        let nameOutput = document.getElementById('name_output');
+        let name = 'Nick';
+
+        addNameButton.addEventListener('click', event => {
+          name += '!'
+          nameOutput.textContent = name;
+        });
+      });
+    </script>
+  </head>
+
+  <body>
+    <p>
+      <span id="output">0</span>
+      <button id="add">Add One</button>
+      
+    </p>
+    <p>
+      <span id="name_output">Nick</span>
+      <button id="add_exclamation">Add Exclamation</button>
+    </p>
+  </body>
+</html>
