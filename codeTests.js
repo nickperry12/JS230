@@ -1,12 +1,8 @@
-function startCounting() {
-  let num = 0;
+let promise1 = Promise.reject(0);
+let promise2 = new Promise((resolve, reject) => setTimeout(reject, 100, "quick"));
+let promise3 = new Promise((resolve, reject) => setTimeout(reject, 99, "slow"));
+let promises = [promise1, promise2, promise3];
 
-  return setInterval(() => {
-    num += 1;
-    console.log(num);
-  }, 1000);
-}
-
-function stopCounting(id) {
-  clearInterval(id);
-}
+Promise.any(promises)
+  .then((value) => console.log(value))
+  .catch((error) => console.log(error));
