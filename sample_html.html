@@ -1,25 +1,28 @@
 <!doctype html>
-<html>
-  <head><title>Question</title></head>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelector('div').addEventListener('mouseover', event => {
-        event.preventDefault();
-        event.stopPropagation();
-      }, true);
-
-      let link = document.querySelector('a');
-      link.addEventListener('click', event => {
-        event.preventDefault();
-        event.stopPropagation();
-      })
-
-    });
-
-  </script>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <title>Selection Filter</title>
+  </head>
   <body>
-    <div>
-      <a href="https://www.launchschool.com">a link</a>
-    </div>
+    <form id="selection-filters" method="post" action="#">
+      <select id="animal-classifications">
+        <option value="Classifications" selected>Classifications</option>
+        <option value="Vertebrate">Vertebrate</option>
+        <option value="Warm-blooded">Warm-blooded</option>
+        <option value="Cold-blooded">Cold-blooded</option>
+        <option value="Mammal">Mammal</option>
+        <option value="Bird">Bird</option>
+      </select>
+      <select id="animals">
+        <option value="Animals" selected>Animals</option>
+        <option value="Bear">Bear</option>
+        <option value="Turtle">Turtle</option>
+        <option value="Whale">Whale</option>
+        <option value="Salmon">Salmon</option>
+        <option value="Ostrich">Ostrich</option>    
+      </select>
+      <button id="clear">Clear</button>  
+    </form>
   </body>
 </html>
