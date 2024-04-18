@@ -36,14 +36,14 @@ function removeOptions(selectElement) {
 }
 
 function setDefaults() {
-  removeOptions[animalClassifications];
-  removeOptions[animalNames];
+  removeOptions(animalClassifications);
+  removeOptions(animalNames);
   
   animalClassifications.add(new Option('Classification', 'Classification'));
   animalNames.add(new Option('Animals', 'Animals'));
 
-  addOptions(animalClassifications, defaultOptions['Classifications']);
-  addOptions(animalNames, defaultOptions['Animals']);
+  addOptions(animalClassifications, Object.keys(animalAndClass));
+  addOptions(animalNames, Object.keys(animals));
 }
 
 animalClassifications.addEventListener("change", event => {
