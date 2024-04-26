@@ -19,13 +19,15 @@
         <footer>
           <p>
             <h3>Tags:</h3>
+            <ul>
             {{#if tags}}
             {{#each tags}}
-            {{> tagTemplate}}
+            <li>{{> tagTemplate}}</li>
             {{/each}}
             {{else}}
             Not Tagged
             {{/if}}
+            </ul>
           </p>
         </footer>
       </article>

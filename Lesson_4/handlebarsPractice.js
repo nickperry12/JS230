@@ -17,7 +17,14 @@ let posts = [
     published: 'April 3, 2015',
     body: 'This is how I prepared for the LS JS230 Written Assessment...',
     tags: []
+  },
+  {
+    title: 'NFL Draft Day',
+    published: 'April 25, 2024',
+    body: 'ITS NFL DRAFT DAY!!!!!',
+    tags: ['football', 'sports']
   }
+    
 ]
 
 let blogPost = Handlebars.compile($('#posts').html());
