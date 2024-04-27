@@ -1,5 +1,3 @@
-
-
 document.addEventListener('DOMContentLoaded', () => {
   let operator = document.querySelector('#operator').value;
   let form = document.querySelector('form');
@@ -16,11 +14,13 @@ document.addEventListener('DOMContentLoaded', () => {
       firstNum = ele.value;
     } else if (ele.tagName === 'INPUT' && ele.id === 'second-number') {
       secondNum = ele.value;
+    } else if (ele.tagName = 'SELECT') {
+      operator = ele.value;
     }
   });
 
   form.addEventListener('submit', event => {
     event.preventDefault();
-    console.log('hi');
+    resultEle.textContent = eval(`${firstNum} ${operator} ${secondNum}`);
   });
 });
