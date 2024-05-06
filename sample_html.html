@@ -1,56 +1,107 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
-    <title>XML Practice</title>
+    <title>your page title goes here</title>
+    <meta charset="utf-8">
   </head>
   <body>
-    <h1>Existing Page</h1>
-
-    <div id="store"></div>
+    <form id="selection-filters" method="post" action="#">
+      <select id="animal-classifications">
+        <option value="Classifications" selected>Classifications</option>
+        <option value="Vertebrate">Vertebrate</option>
+        <option value="Warm-blooded">Warm-blooded</option>
+        <option value="Cold-blooded">Cold-blooded</option>
+        <option value="Mammal">Mammal</option>
+        <option value="Bird">Bird</option>
+      </select>
+      <select id="animals">
+        <option value="Animals" selected>Animals</option>
+        <option value="Bear">Bear</option>
+        <option value="Turtle">Turtle</option>
+        <option value="Whale">Whale</option>
+        <option value="Salmon">Salmon</option>
+        <option value="Ostrich">Ostrich</option>    
+      </select>
+      <button id="clear">Clear</button>  
+    </form>
     <script type="text/javascript">
-      document.addEventListener('DOMContentLoaded', () => {
-      let request = new XMLHttpRequest();
-      let store = document.getElementById('store');
+      let classifications = {
+        'Vertebrate': ['Bear', 'Turtle', 'Whale', 'Salmon', 'Ostrich'],
+        'Warm-blooded': ['Bear', 'Whale', 'Ostrich'],
+        'Cold-blooded': ['Salmon', 'Turtle'],
+        'Mammal': ['Bear', 'Whale'],
+        'Bird': ['Ostrich']
+      };
 
-      request.open('GET', "https://ls-230-web-store-demo.herokuapp.com/products");
+      let animals = {
+        'Bear': ['Vertebrate', 'Warm-blooded', 'Mammal'],
+        'Turtle': ['Vertebrate', 'Cold-blooded'],
+        'Whale': ['Vertebrate', 'Warm-blooded', 'Mammal'],
+        'Salmon': ['Vertebrate', 'Cold-blooded'],
+        'Ostrich': ['Vertebrate', 'Warm-blooded', 'Bird'],
+      }
 
-      request.addEventListener('load', event => {
-        store.innerHTML = request.response;
-      });
+      let filter1 = document.getElementById('animal-classifications');
+      let filter2 = document.getElementById('animals');
+      let clear = document.getElementById('clear');
 
-      request.send();
+      function getAnimalOptions(classification) {
+        let animals = classifications[classification];
+        let newOptions = [];
 
-      store.addEventListener('click', event => {
-        let target = event.target;
-
-        if (target.tagName !== 'A') {
-          return;
-        }
-
-        event.preventDefault();
-
-        let request = new XMLHttpRequest();
-        request.open('GET', "https://ls-230-web-store-demo.herokuapp.com" + target.getAttribute('href'));
-
-        request.addEventListener('load', event => (store.innerHTML = request.response));
-        request.send();
-      });
-
-      store.addEventListener('submit', event => {
-        event.preventDefault();
-        let form = event.target;
-        let request = new XMLHttpRequest();
-        let data = new FormData(form);
-
-        request.open(form.method, `https://ls-230-web-store-demo.herokuapp.com${form.getAttribute('action')}`);
-        request.setRequestHeader('Authorization', 'token AUTH_TOKEN')
-        request.addEventListener('load', event => {
-          store.innerHTML = request.response;
+        animals.forEach(animal => {
+          let option = new Option(animal, animal);
+          newOptions.push(option);
         });
 
-        request.send(data);
-      });
-    });
+        return newOptions;
+      }
+
+      function populateAnimalFilter(options) {
+        options.forEach(option => {
+          filter2.add(option);
+        });
+      }
+
+      function clearOptions(element) {
+        let currentOptions = element.options;
+        while(currentOptions.length > 0 ) {
+          currentOptions.remove(0);
+        }
+      }
+
+      filter1.addEventListener('change', event => {
+        event.preventDefault()
+        clearOptions(filter2);
+        let classification = event.target.value;
+        let options = getAnimalOptions(classification);
+
+        populateAnimalFilter(options);
+        
+      })
+
+      filter2.addEventListener('change', event => {
+
+      })
+
+      clear.addEventListener('click', event => {
+        event.preventDefault();
+        clearOptions(filter1);
+        clearOptions(filter2);
+        
+        let currentOptions = filter1.options;
+        currentOptions.add('Classifications');
+        for (let key in classifications) {
+          currentOptions.add(key)
+        }
+
+        currentOptions = filter2.options;
+        currentOptions.add('Animals');
+        for (let key in animals) {
+          currentOptions.add(key);
+        }
+        
+      })
     </script>
   </body>
 </html>
