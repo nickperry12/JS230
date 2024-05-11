@@ -1,17 +1,34 @@
-const download1 = new Promise((resolve, reject) => {
-  // code to download image 1
-  resolve('Image 1 downloaded');
-});
+"use strict";
 
-const download2 = new Promise((resolve, reject) => {
-  // code to download image 2
-  resolve('Image 2 downloaded');
-});
+function log(arg) {
+  console.log(arg);
+}
 
-const download3 = new Promise((resolve, reject) => {
-  // code to download image 3
-  resolve('Image 3 downloaded');
-});
+function setStartAndEnd(arr, start, end) {
+  if (start > arr.length) {
+    start = arr.length;
+  } else if (end > arr.length) {
+    end = arr.length;
+  }
 
-Promise.race([download1, download2, download3])
-       .then(message => console.log(message));
+  return [start, end];
+}
+
+function slice(arr, start, end) {
+  let slicedArr = [][start, end] = setStartAndEnd(arr, start, end)
+
+  if (start === arr.length || end === 0) {
+    return [];
+  }
+  for (let i = start ; i < end; i++) {
+    slicedArr.push(arr[i]);
+  }
+
+  return slicedArr;
+}
+
+
+log(slice([1, 2, 3], 1, 2));               // [1, 2, 2]
+log(slice([1, 2, 3], 2, 0));               // []
+log(slice([1, 2, 3], 5, 1));               // []
+log(slice([1, 2, 3], 0, 5));               // [1, 2, 3]
