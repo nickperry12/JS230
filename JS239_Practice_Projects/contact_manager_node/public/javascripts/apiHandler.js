@@ -33,12 +33,18 @@ export class APIHandler {
   }
 
   async addContact(formData) {
+    let data = {};
+
+    formData.forEach((key, value) => {
+      data[value] = key;
+    });
+
     let options = {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json; charset=utf-8'
       },
-      body: JSON.stringify(formData)
+      body: JSON.stringify(data)
     }
 
     await fetch('http://localhost:3000/api/contacts/', options)
@@ -49,7 +55,7 @@ export class APIHandler {
           alert(response.statusText);
         }
       })
-      .catch(error => console.error('Error:', error));
+      .catch(error => console.error('There was an error:', error));
   }
 
   async updateContact(id, newData) {

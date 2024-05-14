@@ -1,3 +1,7 @@
+html {
+  font-family:Arial, Helvetica, sans-serif;
+}
+
 body, h1 {
   margin: 0;
   padding: 0;
@@ -22,6 +26,59 @@ h1#main-header a, p {
   text-decoration: none;
   font-weight: 100;
   color: white;
-  font-family:Arial, Helvetica, sans-serif;
   margin: 0;
+}
+
+div#add-and-search {
+  display: block;
+  box-sizing: border-box;
+  width: 35%;
+  background-color: rgb(212, 212, 212);
+  margin: 20px auto;
+  padding: 3px 3px;
+  border-radius: 5px;
+}
+
+div#add-and-search input {
+  font-size: 25px;
+  margin: 10px;
+}
+
+div#add-contact-div {
+  width: 35%;
+  display: block;
+  box-sizing: border-box;
+  background-color: rgb(212, 212, 212);
+  margin: 20px auto;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+div#add-contact-div form, h2 {
+  font-size: 18px;
+  text-align: center;
+}
+
+div#contact-list {
+  width: 35%;
+  margin: 20px auto;
+}
+
+ul#contact-list li {
+  list-style: none;
+}
+
+.contact-card {
+  background-color: rgb(212, 212, 212);
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.contact-card p {
+  color: black;
+}
+
+div#add-contact-div.hide {
+  visibility: collapse;
 }
