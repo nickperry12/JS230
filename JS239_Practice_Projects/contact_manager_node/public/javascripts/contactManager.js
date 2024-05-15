@@ -1,9 +1,11 @@
 import { APIHandler } from "./apiHandler.js";
 import { DisplayHandler } from "./display.js";
 import { SetupHandler } from "./setup.js"
+import { InputValidator } from "./inputValidator.js"
 
 document.addEventListener('DOMContentLoaded', () => {
-  let apiHandler = new APIHandler();
+  let inputValidator = new InputValidator();
+  let apiHandler = new APIHandler(inputValidator);
   let displayHandler = new DisplayHandler(apiHandler);
-  let setupHandler = new SetupHandler(apiHandler, displayHandler);
+  new SetupHandler(apiHandler, displayHandler);
 });

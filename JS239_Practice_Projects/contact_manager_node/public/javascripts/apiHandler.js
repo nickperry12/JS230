@@ -1,5 +1,7 @@
 export class APIHandler {
-  #id = 0;
+  constructor(inputValidator) {
+    this.inputValidator = inputValidator;
+  }
 
   async getContacts() {
     let response = await fetch('http://localhost:3000/api/contacts');
@@ -32,12 +34,28 @@ export class APIHandler {
       .catch(error => console.error('Error:', error));
   }
 
-  async addContact(formData) {
+  async addContact() {
+    const formData = new FormData();
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+    const tags = [...checkboxes].map(checkbox => checkbox.nextElementSibling.textContent).join(',');
+    formData.append('full_name', document.getElementById('name').value);
+    formData.append('phone_number', document.getElementById('phone-number').value);
+    formData.append('email', document.getElementById('email').value);
+    formData.append('tags', tags);
+  
     let data = {};
 
     formData.forEach((key, value) => {
       data[value] = key;
     });
+
+    if (!this.inputValidator.validateData(data)) {
+      alert('Please ensure you provide the following:\n' +
+      'First and last name with no digits.\n A valid email.\n' +
+      'The phone number in (xxx)-xxx-xxxx format.');
+
+      return;
+    }
 
     let options = {
       method: 'POST',

@@ -20,46 +20,126 @@
   <main></main>
 
   <script id="add-and-search-template" type="text/x-handlebars">
-    <input id="add-new-contact-btn" type="button" name="add" value="Add"/>
-    <input id="search-contacts-btn" type="text" name="search" placeholder="Search"/>
+    <div id="add-and-search">
+      <input id="add-new-contact-btn" type="button" name="add" value="Add"/>
+      <input id="search-contacts" type="text" name="search" placeholder="Search"/>
+      <input id="show-all" type="button" name="show-all" value="Show All" />
+    </div>
   </script>
 
   <script id="add-contact-template" type="text/x-handlebars">
-    <h2>Create Contact</h2>
-    <form id="add-contact-form">
-      <div>
-        <label for="name">Full Name:</label>
-        <input type="text" id="name" name="full_name" placeholder="Enter name here"/>
-      </div>
-      <div>
-        <label for="phone-number">Phone Number:</label>
-        <input type="text" id="phone-number" name="phone_number" placeholder="Enter phone number here"/>
-      </div>
-      <div>
-        <label for="email">Email:</label>
-        <input type="text" id="email" name="email" placeholder="Enter email here"/>
-      </div>
-      <input type="submit" id="new-contact-submit" value="Submit"/>
-      <input type="button" id="new-contact-cancel" value="Cancel"/>
-    </form>
+    <div id="add-contact-div" class="hide">
+      <h2>Create Contact</h2>
+      <form id="add-contact-form">
+        <div>
+          <label for="name">Full Name:</label>
+          <input type="text" id="name" name="full_name" placeholder="Enter name here"/>
+        </div>
+        <div>
+          <label for="phone-number">Phone Number:</label>
+          <input type="text" id="phone-number" name="phone_number" placeholder="Enter phone number here"/>
+        </div>
+        <div>
+          <label for="email">Email:</label>
+          <input type="text" id="email" name="email" placeholder="Enter email here"/>
+        </div>
+        <div>
+          <legend>Choose your tags:</legend>
+          <div>
+            <input type="checkbox" id="tags" name="accounting" />
+            <label for="accounting">Accounting</label>
+          </div>
+          <div>
+            <input type="checkbox" id="tags" name="engineering" />
+            <label for="engineering">Engineering</label>
+          </div>
+          <div>
+            <input type="checkbox" id="tags" name="human resources" />
+            <label for="human resources">Human Resources</label>
+          </div>
+          <div>
+            <input type="checkbox" id="tags" name="warehouse" />
+            <label for="warehouse">Warehouse</label>
+          </div>
+          <div>
+            <input type="checkbox" id="tags" name="it-dept" />
+            <label for="it-dept">IT Dept</label>
+          </div>
+        </div>
+        <input type="submit" id="new-contact-submit" value="Submit"/>
+        <input type="button" id="new-contact-cancel" value="Cancel"/>
+      </form>
+    </div>
+  </script>
+
+  <script id="edit-contact-template" type="text/x-handlebars">
+    <div id="edit-contact-div" class="hide">
+      <h2>Edit Contact</h2>
+      <form id="edit-contact-form">
+        <div>
+          <label for="name">Full Name:</label>
+          <input type="text" id="name" name="full_name" placeholder="Enter name here"/>
+        </div>
+        <div>
+          <label for="phone-number">Phone Number:</label>
+          <input type="text" id="phone-number" name="phone_number" placeholder="Enter phone number here"/>
+        </div>
+        <div>
+          <label for="email">Email:</label>
+          <input type="text" id="email" name="email" placeholder="Enter email here"/>
+        </div>
+        <div>
+          <legend>Choose your tags:</legend>
+          <div>
+            <input type="checkbox" id="tags" name="accounting" />
+            <label for="accounting">Accounting</label>
+          </div>
+          <div>
+            <input type="checkbox" id="tags" name="engineering" />
+            <label for="engineering">Engineering</label>
+          </div>
+          <div>
+            <input type="checkbox" id="tags" name="human resources" />
+            <label for="human resources">Human Resources</label>
+          </div>
+          <div>
+            <input type="checkbox" id="tags" name="warehouse" />
+            <label for="warehouse">Warehouse</label>
+          </div>
+          <div>
+            <input type="checkbox" id="tags" name="it-dept" />
+            <label for="it-dept">IT Dept</label>
+          </div>
+        </div>
+        <input type="submit" id="edit-contact-submit" value="Submit"/>
+        <input type="button" id="edit-contact-cancel" value="Cancel"/>
+      </form>
+    </div>
   </script>
 
   <script id="contact-list-template" type="text/x-handlebars">
-    <ul id="contact-list">
-      {{#each contacts}}
-        <li>
-          <div class="contact-card" data-contact-id="{{id}}">
-            <h2>Name: {{full_name}}</h2>
-            <p>Phone number: {{phone_number}}</p>
-            <p>Email: {{email}}</p>
-            {{#if tags}}
-            <p>Tags: {{tags}}</p>
-            {{/if}}
-            <input type="button" id="delete_contact" value="Delete" />
-          </div>
-        </li>
-      {{/each}}
+    <div id="contact-list">
+      <ul id="contact-list">
+        {{#each contacts}}
+          <li>
+            <div class="contact-card" data-contact-id="{{id}}">
+              <h2>Name: {{full_name}}</h2>
+              <p>Phone number: {{phone_number}}</p>
+              <p>Email: {{email}}</p>
+              {{#if tags}}
+              <p>Tags: 
+                {{#each tags}}
+                <button class="tag-button"><a href="#" class="tag-link">{{this}}</a></button>
+                {{/each}}
+              </p>
+              {{/if}}
+              <input type="button" id="edit_contact" value="Edit" />
+              <input type="button" id="delete_contact" value="Delete" />
+            </div>
+          </li>
+        {{/each}}
       </ul>
+    </div>
   </script>
 </body>
 </html>

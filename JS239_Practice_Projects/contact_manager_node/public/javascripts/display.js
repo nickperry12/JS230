@@ -3,40 +3,51 @@ export class DisplayHandler {
     this.apiHandler = apiHandler;
   }
 
-  renderContacts(contacts) {
-    let template = document.querySelector('#contact-list-template').innerHTML;
+  compileTemplate(template, position, context) {
     let compiledTemplate = Handlebars.compile(template);
     let container = document.querySelector('main');
-    let div = document.createElement('div');
-    div.id = 'contact-list';
-    div.innerHTML = compiledTemplate({ contacts: contacts });
-    container.insertAdjacentElement('beforeend', div);
+    let html = context === undefined ? compiledTemplate() : compiledTemplate(context);
+    container.insertAdjacentHTML(position, html);
+  }
+
+  renderContacts(contacts) {
+    contacts.forEach(contact => {
+      if (contact.tags) {
+        contact.tags = contact.tags.split(',');
+      }
+    });
+
+    let template = document.querySelector('#contact-list-template').innerHTML;
+    let position = 'beforeend';
+    let context = { contacts: contacts };
+    this.compileTemplate(template, position, context);
   }
 
   renderAddBtnSearchBar() {
     let template = document.querySelector('#add-and-search-template').innerHTML;
-    let compiledTemplate = Handlebars.compile(template);
-    let div = document.createElement('DIV');
-    div.id = 'add-and-search';
-    let container = document.querySelector('main');
-
-    div.innerHTML = compiledTemplate();
-    container.insertAdjacentElement('afterbegin', div);
+    let position = 'afterbegin';
+    this.compileTemplate(template, position);
   }
 
   renderAddContactForm() {
     let template = document.querySelector('#add-contact-template').innerHTML;
-    let compiledTemplate = Handlebars.compile(template);
-    let container = document.querySelector('main');
-    let div = document.createElement('DIV');
-    div.id = 'add-contact-div';
-    div.innerHTML = compiledTemplate();
-    div.classList.add('hide');
-
-    container.insertAdjacentElement('beforeend', div);
+    let position = 'beforeend';
+    this.compileTemplate(template, position);
   }
 
-  toggleView(event) {
+  renderEditContactForm() {
+    let template = document.querySelector('#edit-contact-template').innerHTML;
+    let position = 'beforeend';
+    this.compileTemplate(template, position);
+  }
+
+  toggleEditContactView(event) {
+    event.preventDefault();
+    let ele = document.querySelector('#edit-contact-div');
+    ele.classList.toggle('hide');
+  }
+
+  toggleContactView(event) {
     event.preventDefault();
     let ele = document.querySelector('#add-contact-div');
     ele.classList.toggle('hide');

@@ -19,5 +19,40 @@
     "email": "ph@example.com",
     "phone_number": "54321098761",
     "tags": null
+  },
+  {
+    "full_name": "John Doe",
+    "phone_number": "112-12312--1241",
+    "email": "john@doe.com",
+    "tags": null,
+    "id": 4
+  },
+  {
+    "full_name": "Dio Brando",
+    "phone_number": "111-222-3333",
+    "email": "dio@me.com",
+    "tags": null,
+    "id": 5
+  },
+  {
+    "full_name": "Nick Perry",
+    "phone_number": "123-444-5577",
+    "email": "nick@me.com",
+    "tags": null,
+    "id": 6
+  },
+  {
+    "full_name": "Big Zadorov",
+    "phone_number": "111-222-4444",
+    "email": "zaddy@me.com",
+    "tags": "Accounting,Engineering,IT Dept",
+    "id": 7
+  },
+  {
+    "full_name": "Nick Perry",
+    "phone_number": "778-241-1681",
+    "email": "nick.perry12@outlook.com",
+    "tags": "Accounting,Engineering",
+    "id": 9
   }
 ]
