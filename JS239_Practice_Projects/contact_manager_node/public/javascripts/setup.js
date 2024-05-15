@@ -101,8 +101,11 @@ export class SetupHandler {
         .then((result) => {
           let filteredContacts = result.filter(contact => {
             let value = searchBar.value.toLowerCase();
-            let name = contact.full_name.toLowerCase();
-            return name.startsWith(value);
+            let splitName = contact.full_name.toLowerCase().split(' ');
+            let firstName = splitName[0];
+            let lastName = splitName[1];
+
+            return firstName.startsWith(value) || lastName.startsWith(value);
           });
 
           let contactList = document.querySelector('#contact-list');

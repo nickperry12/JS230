@@ -35,13 +35,6 @@
     "id": 5
   },
   {
-    "full_name": "Nick Perry",
-    "phone_number": "123-444-5577",
-    "email": "nick@me.com",
-    "tags": null,
-    "id": 6
-  },
-  {
     "full_name": "Big Zadorov",
     "phone_number": "111-222-4444",
     "email": "zaddy@me.com",
@@ -54,5 +47,12 @@
     "email": "nick.perry12@outlook.com",
     "tags": "Accounting,Engineering",
     "id": 9
+  },
+  {
+    "full_name": "Big Mike",
+    "phone_number": "111-222-3333",
+    "email": "mike@big.com",
+    "tags": "Human Resources",
+    "id": 10
   }
 ]
