@@ -2,10 +2,10 @@ export class SetupHandler {
   constructor(apiHandler, displayHandler) {
     this.apiHandler = apiHandler;
     this.displayHandler = displayHandler;
-    this.setupMain();
+    this.setupMainDisplay();
   }
 
-  async setupMain() {
+  async setupMainDisplay() {
     await this.apiHandler.getContacts()
       .then((result) => {
         this.displayHandler.renderAddBtnSearchBar();
@@ -34,7 +34,7 @@ export class SetupHandler {
 
     this.apiHandler.updateContact(id, data);
     this.clearMain();
-    this.setupMain();
+    this.setupMainDisplay();
   }
 
   bind() {
@@ -42,7 +42,7 @@ export class SetupHandler {
     showAllBtn.addEventListener('click', event => {
       event.preventDefault();
       this.clearMain();
-      this.setupMain();
+      this.setupMainDisplay();
     });
 
     let addBtn = document.querySelector('#add-new-contact-btn');
@@ -68,7 +68,7 @@ export class SetupHandler {
           await this.apiHandler.deleteContact(id)
           .then(() =>  {
             this.clearMain();
-            this.setupMain();
+            this.setupMainDisplay();
           });
         }
       } else if (ele.tagName === 'INPUT' && ele.id === 'edit_contact') {
@@ -92,7 +92,7 @@ export class SetupHandler {
       event.preventDefault();
       this.apiHandler.addContact();
       this.clearMain();
-      this.setupMain();
+      this.setupMainDisplay();
     });
 
     let searchBar = document.querySelector('#search-contacts')
