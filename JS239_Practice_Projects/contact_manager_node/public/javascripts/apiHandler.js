@@ -36,8 +36,7 @@ export class APIHandler {
 
   async addContact() {
     const formData = new FormData();
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
-    const tags = [...checkboxes].map(checkbox => checkbox.nextElementSibling.textContent).join(',');
+    const tags = document.querySelector('#tags').value.split(' ');
     formData.append('full_name', document.getElementById('name').value);
     formData.append('phone_number', document.getElementById('phone-number').value);
     formData.append('email', document.getElementById('email').value);

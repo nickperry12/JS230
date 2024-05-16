@@ -37,26 +37,7 @@ export class SetupHandler {
     this.setupMainDisplay();
   }
 
-  bind() {
-    let showAllBtn = document.querySelector('#show-all');
-    showAllBtn.addEventListener('click', event => {
-      event.preventDefault();
-      this.clearMain();
-      this.setupMainDisplay();
-    });
-
-    let addBtn = document.querySelector('#add-new-contact-btn');
-    addBtn.addEventListener('click', this.displayHandler.toggleContactView);
-
-    let cancelBtns = document.querySelectorAll('input[value="Cancel"]');
-    cancelBtns.forEach(btn => {
-      if (btn.id === 'edit-contact-cancel') {
-        btn.addEventListener('click', this.displayHandler.toggleEditContactView);
-      } else {
-        btn.addEventListener('click', this.displayHandler.toggleContactView);
-      }
-    });
-
+  contactListHandler() {
     let contactList = document.querySelector('ul#contact-list');
     contactList.addEventListener('click', async event => {
       let ele = event.target
@@ -86,34 +67,9 @@ export class SetupHandler {
         editSubmitBtn.addEventListener('click', eventFunction);
       }
     });
+  }
 
-    let submitBtn = document.querySelector('input[id="new-contact-submit"]');
-    submitBtn.addEventListener('click', event => {
-      event.preventDefault();
-      this.apiHandler.addContact();
-      this.clearMain();
-      this.setupMainDisplay();
-    });
-
-    let searchBar = document.querySelector('#search-contacts')
-    searchBar.addEventListener('keyup', async event => {
-      await this.apiHandler.getContacts()
-        .then((result) => {
-          let filteredContacts = result.filter(contact => {
-            let value = searchBar.value.toLowerCase();
-            let splitName = contact.full_name.toLowerCase().split(' ');
-            let firstName = splitName[0];
-            let lastName = splitName[1];
-
-            return firstName.startsWith(value) || lastName.startsWith(value);
-          });
-
-          let contactList = document.querySelector('#contact-list');
-          contactList.remove();
-          this.displayHandler.renderContacts(filteredContacts);
-        });
-    });
-
+  tagLinkHandler() {
     let tags = [...document.querySelectorAll('a.tag-link')];
     tags.forEach(tag => {
       tag.addEventListener('click', async event => {
@@ -130,9 +86,76 @@ export class SetupHandler {
             let contactList = document.querySelector('#contact-list');
             contactList.remove();
             this.displayHandler.renderContacts(filteredContacts);
+            this.contactListHandler();
           });
       })
-    })
+    });
+  }
 
+  searchBarHandler() {
+    let searchBar = document.querySelector('#search-contacts')
+    searchBar.addEventListener('keyup', async event => {
+      await this.apiHandler.getContacts()
+        .then((result) => {
+          let filteredContacts = result.filter(contact => {
+            let value = searchBar.value.toLowerCase();
+            let splitName = contact.full_name.toLowerCase().split(' ');
+            let firstName = splitName[0];
+            let lastName = splitName[1];
+
+            return firstName.startsWith(value) || lastName.startsWith(value);
+          });
+
+          let contactList = document.querySelector('#contact-list');
+          contactList.remove();
+          this.displayHandler.renderContacts(filteredContacts);
+          this.contactListHandler();
+        });
+    });
+  }
+
+  cancelBtnHandler() {
+    let cancelBtns = document.querySelectorAll('input[value="Cancel"]');
+    cancelBtns.forEach(btn => {
+      if (btn.id === 'edit-contact-cancel') {
+        btn.addEventListener('click', this.displayHandler.toggleEditContactView);
+      } else {
+        btn.addEventListener('click', this.displayHandler.toggleContactView);
+      }
+    });
+  }
+
+  showAllBtnHandler() {
+    let showAllBtn = document.querySelector('#show-all');
+    showAllBtn.addEventListener('click', event => {
+      event.preventDefault();
+      this.clearMain();
+      this.setupMainDisplay();
+    });
+  }
+
+  addBtnHandler() {
+    let addBtn = document.querySelector('#add-new-contact-btn');
+    addBtn.addEventListener('click', this.displayHandler.toggleContactView);
+  }
+
+  submitBtnHandler() {
+    let submitBtn = document.querySelector('input[id="new-contact-submit"]');
+    submitBtn.addEventListener('click', event => {
+      event.preventDefault();
+      this.apiHandler.addContact();
+      this.clearMain();
+      this.setupMainDisplay();
+    });
+  }
+
+  bind() {
+    this.showAllBtnHandler();
+    this.addBtnHandler();
+    this.cancelBtnHandler();
+    this.searchBarHandler();
+    this.contactListHandler();
+    this.submitBtnHandler();
+    this.tagLinkHandler();
   }
 }
